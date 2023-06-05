@@ -1,21 +1,12 @@
+import { Music } from "models";
 import React, { useContext, createContext, useState, useCallback } from "react";
 
 const MusicContext = createContext<{
-  musicArray?: Array<{ title: string; img: string; id: number }>;
+  musicArray?: Array<Music>;
   removeFromArray?: (removeId: number) => void;
-  pushMusic?: ({
-    title,
-    img,
-    id,
-  }: {
-    title: string;
-    img: string;
-    id: number;
-  }) => void;
-  currentMusic?: { title: string; img: string; id: number };
-  setCurrentMusic?: React.Dispatch<
-    React.SetStateAction<{ title: string; img: string; id: number } | undefined>
-  >;
+  pushMusic?: (music: Music) => void;
+  currentMusic?: Music;
+  setCurrentMusic?: React.Dispatch<React.SetStateAction<Music | undefined>>;
 }>({});
 
 export const useMusic = () => {
@@ -23,25 +14,16 @@ export const useMusic = () => {
 };
 
 const MusicProvider = ({ children }: { children: React.ReactNode }) => {
-  const [musicArray, setMusicArray] = useState<
-    Array<{ title: string; img: string; id: number }>
-  >([]);
+  const [musicArray, setMusicArray] = useState<Array<Music>>([]);
 
   const removeFromArray = useCallback((removeId: number) => {
     setMusicArray((prev) => prev?.filter(({ id }) => id !== removeId));
   }, []);
 
-  const pushMusic = useCallback(
-    ({ title, img, id }: { title: string; img: string; id: number }) => {
-      setMusicArray((prev) => [...prev, { title, img, id }]);
-    },
-    []
-  );
-  const [currentMusic, setCurrentMusic] = useState<{
-    title: string;
-    img: string;
-    id: number;
-  }>();
+  const pushMusic = useCallback((music: Music) => {
+    setMusicArray((prev) => [...prev, music]);
+  }, []);
+  const [currentMusic, setCurrentMusic] = useState<Music>();
   const value = {
     musicArray,
     removeFromArray,

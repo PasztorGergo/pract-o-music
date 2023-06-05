@@ -14,12 +14,12 @@ const HomePage = () => {
 
   const uploadMusic = (src: string, title: string) => {
     const file = new Audio(src);
-    console.log(src);
     //@ts-ignore
     pushMusic({
       title,
       id: musicArray ? musicArray?.length : 0,
       img: "",
+      file,
     });
     console.log(musicArray);
   };
@@ -28,13 +28,8 @@ const HomePage = () => {
     <>
       <aside className="md:flex hidden flex-col justify-start gap-8 w-1/3">
         {musicArray && musicArray?.length > 0 ? (
-          musicArray?.map(({ img, title, id }) => (
-            <MusicCard
-              img={img}
-              title={title}
-              key={id}
-              isCurrent={currentMusic?.id === id}
-            ></MusicCard>
+          musicArray?.map((music) => (
+            <MusicCard key={music.id} music={music}></MusicCard>
           ))
         ) : (
           <div className="flex flex-col items-center gap-4 justify-center">
