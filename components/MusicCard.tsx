@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   RiPlayCircleFill,
@@ -12,6 +12,12 @@ import { useMusic } from "context/MusicProvider";
 export const MusicCard = ({ music }: { music: Music }) => {
   const { currentMusic, setCurrentMusic, removeFromArray } = useMusic();
   const [paused, setPaused] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (currentMusic?.id !== music.id) {
+      setPaused(true);
+    }
+  }, [currentMusic]);
 
   return (
     <div
