@@ -25,7 +25,7 @@ export const MusicCard = ({ music }: { music: Music }) => {
         currentMusic?.id === music.id
           ? "shadow-md bg-slate-300"
           : "shadow-sm bg-slate-200"
-      }  text-slate-800 w-full grid [grid-template-columns:1fr_3fr] grid-rows-2`}
+      }  text-slate-800 w-full grid [grid-template-columns:1fr_3fr] grid-rows-2 transition-all`}
     >
       {music.img && music.img !== "" ? (
         <Image
@@ -36,14 +36,14 @@ export const MusicCard = ({ music }: { music: Music }) => {
           height={72}
         />
       ) : (
-        <div className="text-3xl w-[4.5rem] h-[4.5rem] aspect-square rounded-lg bg-[linear-gradient(135deg,#1CD8D2_0%,#93EDC7_100%)] p-2 grid place-items-center">
+        <div className="row-span-2 row-start-1 col-span-1 col-start-1 text-3xl w-[4.5rem] h-[4.5rem] aspect-square rounded-lg bg-[linear-gradient(135deg,#1CD8D2_0%,#93EDC7_100%)] p-2 grid place-items-center">
           <RiMusicFill className="text-black "> </RiMusicFill>
         </div>
       )}
       <h2 className="font-bold col-span-1 row-span-1 row-start-1 col-start-2 text-slate-800">
         {music.title}
       </h2>
-      <div className="flex justify-center items-center gap-4">
+      <div className="flex justify-start items-center gap-4">
         <RiCloseCircleFill
           onClick={() => {
             if (currentMusic?.id === music.id) {

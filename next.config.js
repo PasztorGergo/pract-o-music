@@ -5,6 +5,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ["media.tenor.com"],
+  },
 };
 
 module.exports = nextConfig;
