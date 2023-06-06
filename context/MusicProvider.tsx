@@ -23,7 +23,6 @@ export const useMusic = () => {
 
 const MusicProvider = ({ children }: { children: React.ReactNode }) => {
   const [musicArray, setMusicArray] = useState<Array<Music>>([]);
-  const [volume, setVolume] = useState<number>(1);
 
   const removeFromArray = useCallback((removeId: number) => {
     setMusicArray((prev) => prev?.filter(({ id }) => id !== removeId));
@@ -33,13 +32,17 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     setMusicArray((prev) => [...prev, music]);
   }, []);
   const [currentMusic, setCurrentMusic] = useState<Music>();
+  const [volume, setVolume] = useState<number>(
+    currentMusic?.file.volume || 0.5
+  );
 
   useEffect(() => {
     if (currentMusic) {
+      console.log(volume);
       //@ts-ignore
       currentMusic.file.volume = volume;
     }
-  }, [volume, currentMusic]);
+  }, [, volume]);
 
   const value = {
     musicArray,

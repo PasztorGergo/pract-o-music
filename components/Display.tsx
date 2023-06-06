@@ -6,7 +6,6 @@ import {
   RiVolumeDownFill,
   RiVolumeMuteFill,
   RiVolumeUpFill,
-  RiVolumeVibrateFill,
 } from "react-icons/ri";
 
 export const Display = () => {
@@ -16,8 +15,12 @@ export const Display = () => {
   );
 
   useEffect(() => {
-    setMusicTime(currentMusic?.file.currentTime || 0);
-  }, [currentMusic?.file]);
+    if (!currentMusic?.file.paused) {
+      setInterval(() => {
+        setMusicTime(currentMusic?.file.currentTime || 0);
+      }, 500);
+    }
+  }, [currentMusic?.file.paused]);
 
   return (
     <>
@@ -36,6 +39,7 @@ export const Display = () => {
             //@ts-ignore
             currentMusic.file.currentTime = parseFloat(e.currentTarget.value);
             setMusicTime(currentMusic?.file.currentTime || 0);
+            setVolume!(volume!);
           }}
           onMouseDown={() => {
             //@ts-ignore
@@ -59,10 +63,11 @@ export const Display = () => {
             className="h-1 appearance-none bg-[#93EDC7] rounded-lg accent-[#1CD8D2]"
             min={0}
             max={1}
-            step={0.05}
+            step={0.01}
             onChange={(e) => {
               setVolume!(parseFloat(e.currentTarget.value));
             }}
+            value={volume}
           />
         </div>
       </div>
