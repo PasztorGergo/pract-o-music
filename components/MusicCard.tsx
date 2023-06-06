@@ -8,6 +8,7 @@ import {
 } from "react-icons/ri";
 import { Music } from "models";
 import { useMusic } from "context/MusicProvider";
+import { motion } from "framer-motion";
 
 export const MusicCard = ({ music }: { music: Music }) => {
   const { currentMusic, setCurrentMusic, removeFromArray } = useMusic();
@@ -20,7 +21,20 @@ export const MusicCard = ({ music }: { music: Music }) => {
   }, [currentMusic]);
 
   return (
-    <div
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transformOrigin: "center",
+        transition: { type: "spring", stiffness: 60, bounce: 0 },
+      }}
+      exit={{
+        opacity: 0,
+        transformOrigin: "center",
+        transition: { type: "spring", stiffness: 60, bounce: 0 },
+      }}
       className={`rounded-lg p-4 ${
         currentMusic?.id === music.id
           ? "shadow-md bg-slate-300"
@@ -78,6 +92,6 @@ export const MusicCard = ({ music }: { music: Music }) => {
           ></RiPauseCircleFill>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

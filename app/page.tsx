@@ -5,6 +5,7 @@ import { Display, MusicCard } from "components";
 import { useMusic } from "context/MusicProvider";
 import { RiMusicFill } from "react-icons/ri";
 import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
 
 export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1",
@@ -31,9 +32,11 @@ const HomePage = () => {
       <aside className="md:flex hidden flex-col justify-start gap-8 w-1/3">
         {musicArray && musicArray?.length > 0 ? (
           <>
-            {musicArray?.map((music) => (
-              <MusicCard key={music.id} music={music}></MusicCard>
-            ))}
+            <AnimatePresence>
+              {musicArray?.map((music) => (
+                <MusicCard key={music.id} music={music}></MusicCard>
+              ))}
+            </AnimatePresence>
             <label
               className="self-center rounded-lg cursor-pointer uppercase font-bold text-sm transition-transform text-white hover:scale-105 bg-[linear-gradient(135deg,#1CD8D2_0%,#93EDC7_100%)] px-3 py-2"
               htmlFor="file"
