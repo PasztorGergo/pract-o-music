@@ -1,5 +1,11 @@
 import { Music } from "models";
-import React, { useContext, createContext, useState, useCallback } from "react";
+import React, {
+  useContext,
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 
 const MusicContext = createContext<{
   musicArray?: Array<Music>;
@@ -7,6 +13,8 @@ const MusicContext = createContext<{
   pushMusic?: (music: Music) => void;
   currentMusic?: Music;
   setCurrentMusic?: React.Dispatch<React.SetStateAction<Music | undefined>>;
+  volume?: number;
+  setVolume?: React.Dispatch<React.SetStateAction<number>>;
 }>({});
 
 export const useMusic = () => {
@@ -15,6 +23,7 @@ export const useMusic = () => {
 
 const MusicProvider = ({ children }: { children: React.ReactNode }) => {
   const [musicArray, setMusicArray] = useState<Array<Music>>([]);
+  const [volume, setVolume] = useState<number>(1);
 
   const removeFromArray = useCallback((removeId: number) => {
     setMusicArray((prev) => prev?.filter(({ id }) => id !== removeId));
@@ -24,12 +33,22 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     setMusicArray((prev) => [...prev, music]);
   }, []);
   const [currentMusic, setCurrentMusic] = useState<Music>();
+
+  useEffect(() => {
+    if (currentMusic) {
+      //@ts-ignore
+      currentMusic.file.volume = volume;
+    }
+  }, [volume, currentMusic]);
+
   const value = {
     musicArray,
     removeFromArray,
     pushMusic,
     currentMusic,
     setCurrentMusic,
+    volume,
+    setVolume,
   };
   return (
     <MusicContext.Provider value={value}>{children}</MusicContext.Provider>
