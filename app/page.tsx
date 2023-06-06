@@ -7,11 +7,6 @@ import { RiMusicFill } from "react-icons/ri";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 
-export const metadata: Metadata = {
-  viewport: "width=device-width, initial-scale=1",
-  title: "Pract-o-music",
-};
-
 const HomePage = () => {
   const { musicArray, currentMusic, pushMusic } = useMusic();
 
