@@ -1,6 +1,6 @@
 "use client";
 import { useMusic } from "context/MusicProvider";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   RiMusicFill,
   RiVolumeDownFill,
@@ -13,14 +13,19 @@ export const Display = () => {
   const [musicTime, setMusicTime] = useState<number>(
     currentMusic?.file.currentTime || 0
   );
+  const interval = setInterval(() => {
+    setMusicTime(currentMusic!.file.currentTime);
+  }, 1000);
 
   useEffect(() => {
-    if (!currentMusic?.file.paused) {
-      setInterval(() => {
-        setMusicTime(currentMusic?.file.currentTime || 0);
-      }, 500);
-    }
-  }, [currentMusic?.file.paused]);
+    setMusicTime(currentMusic!.file.currentTime);
+    interval.refresh();
+
+    return () => clearInterval(interval);
+  }, []);
+  useEffect(() => {
+    clearInterval(interval);
+  }, [currentMusic?.id]);
 
   return (
     <>
@@ -32,13 +37,13 @@ export const Display = () => {
         <input
           type="range"
           className="grow-[0.7] h-1 appearance-none bg-[#93EDC7] rounded-lg accent-[#1CD8D2]"
-          value={musicTime}
+          value={currentMusic!.file.currentTime}
           max={currentMusic?.file.duration}
           min={0}
           onChange={(e) => {
             //@ts-ignore
             currentMusic.file.currentTime = parseFloat(e.currentTarget.value);
-            setMusicTime(currentMusic?.file.currentTime || 0);
+            setMusicTime(currentMusic?.file.currentTime!);
             setVolume!(volume!);
           }}
           onMouseDown={() => {

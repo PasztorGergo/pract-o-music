@@ -33,16 +33,12 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
   const [currentMusic, setCurrentMusic] = useState<Music>();
   const [volume, setVolume] = useState<number>(
-    currentMusic?.file.volume || 0.5
+    currentMusic?.file.volume || 0.45
   );
 
   useEffect(() => {
-    if (currentMusic) {
-      console.log(volume);
-      //@ts-ignore
-      currentMusic.file.volume = volume;
-    }
-  }, [, volume]);
+    musicArray.forEach((x) => (x.file.volume = volume));
+  }, [, volume, currentMusic?.id]);
 
   const value = {
     musicArray,
