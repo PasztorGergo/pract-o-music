@@ -57,12 +57,28 @@ export const Display = () => {
           }}
         />
         <div className="flex items-center justify-end gap-4 grow-[0.3]">
-          {volume === 0 ? (
-            <RiVolumeMuteFill className="text-2xl text-slate-800"></RiVolumeMuteFill>
+          {currentMusic!.file.volume === 0 ? (
+            <RiVolumeMuteFill
+              className="text-2xl text-slate-800 cursor-pointer"
+              onClick={() => {
+                //@ts-ignore
+                currentMusic!.file.volume = volume === 0 ? 0.45 : volume;
+              }}
+            ></RiVolumeMuteFill>
           ) : volume! < 0.5 ? (
-            <RiVolumeDownFill className="text-2xl text-slate-800"></RiVolumeDownFill>
+            <RiVolumeDownFill
+              className="text-2xl text-slate-800 cursor-pointer"
+              onClick={() => {
+                currentMusic!.file.volume = 0;
+              }}
+            ></RiVolumeDownFill>
           ) : (
-            <RiVolumeUpFill className="text-2xl text-slate-800"></RiVolumeUpFill>
+            <RiVolumeUpFill
+              className="text-2xl text-slate-800 cursor-pointer"
+              onClick={() => {
+                currentMusic!.file.volume = 0;
+              }}
+            ></RiVolumeUpFill>
           )}
           <input
             type="range"

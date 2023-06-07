@@ -22,7 +22,9 @@ export const useMusic = () => {
 };
 
 const MusicProvider = ({ children }: { children: React.ReactNode }) => {
-  const [musicArray, setMusicArray] = useState<Array<Music>>([]);
+  const [musicArray, setMusicArray] = useState<Array<Music>>(
+    /*JSON.parse(global.localStorage.getItem("songs") || "[]") ||*/ []
+  );
 
   const removeFromArray = useCallback((removeId: number) => {
     setMusicArray((prev) => prev?.filter(({ id }) => id !== removeId));
@@ -41,7 +43,12 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
   }, [volume, currentMusic?.id, currentMusic?.file.currentTime]);
 
   useEffect(() => {
-    global.localStorage.setItem("songs", JSON.stringify(musicArray));
+    global.localStorage.setItem(
+      "songs",
+      JSON.stringify([
+        ...musicArray.map((x) => ({ ...x, file: JSON.stringify(x.file) })),
+      ])
+    );
   }, [musicArray]);
 
   const value = {
