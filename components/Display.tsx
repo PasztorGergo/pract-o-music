@@ -19,7 +19,7 @@ export const Display = () => {
 
   useEffect(() => {
     setMusicTime(currentMusic!.file.currentTime);
-    interval.refresh();
+    interval;
 
     return () => clearInterval(interval);
   }, []);
@@ -71,6 +71,7 @@ export const Display = () => {
             step={0.01}
             onChange={(e) => {
               setVolume!(parseFloat(e.currentTarget.value));
+              currentMusic!.file.volume = parseFloat(e.currentTarget.value);
             }}
             value={volume}
           />
