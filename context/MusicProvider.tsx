@@ -40,6 +40,10 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [volume, currentMusic?.id, currentMusic?.file.currentTime]);
 
+  useEffect(() => {
+    global.localStorage.setItem("songs", JSON.stringify(musicArray));
+  }, [musicArray]);
+
   const value = {
     musicArray,
     removeFromArray,

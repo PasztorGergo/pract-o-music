@@ -24,7 +24,7 @@ const HomePage = () => {
 
   return (
     <>
-      <aside className="md:flex hidden flex-col justify-start gap-8 w-1/3">
+      <aside className="flex w-full flex-col justify-start gap-8 md:w-1/3">
         {musicArray && musicArray?.length > 0 ? (
           <>
             <AnimatePresence>
@@ -77,7 +77,7 @@ const HomePage = () => {
           </div>
         )}
       </aside>
-      <main className="w-2/3 min-h-full max-h-screen flex flex-col justify-between items-center">
+      <main className="md:w-2/3 w-full min-h-full max-h-screen flex flex-col justify-between items-center">
         {currentMusic ? (
           <Display />
         ) : (

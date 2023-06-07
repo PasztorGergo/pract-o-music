@@ -39,7 +39,7 @@ export const MusicCard = ({ music }: { music: Music }) => {
         currentMusic?.id === music.id
           ? "shadow-md bg-slate-300"
           : "shadow-sm bg-slate-200"
-      }  text-slate-800 w-full grid [grid-template-columns:1fr_3fr] grid-rows-2 transition-all`}
+      }  text-slate-800 w-full grid gap-x-4 [grid-template-columns:1fr_3fr] grid-rows-2 transition-all`}
     >
       {music.img && music.img !== "" ? (
         <Image

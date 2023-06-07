@@ -43,8 +43,9 @@ export const Display = () => {
           onChange={(e) => {
             //@ts-ignore
             currentMusic.file.currentTime = parseFloat(e.currentTarget.value);
-            setMusicTime(currentMusic?.file.currentTime!);
-            setVolume!(volume!);
+            setMusicTime(currentMusic?.file.currentTime || musicTime);
+            //@ts-ignore
+            currentMusic.file.volume = volume;
           }}
           onMouseDown={() => {
             //@ts-ignore
@@ -70,7 +71,8 @@ export const Display = () => {
             max={1}
             step={0.01}
             onChange={(e) => {
-              setVolume!(parseFloat(e.currentTarget.value));
+              //@ts-ignore
+              setVolume(parseFloat(e.currentTarget.value));
               currentMusic!.file.volume = parseFloat(e.currentTarget.value);
             }}
             value={volume}
