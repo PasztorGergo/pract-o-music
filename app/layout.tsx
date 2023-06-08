@@ -2,10 +2,15 @@
 import React from "react";
 import "../styles/globals.css";
 import MusicProvider from "context/MusicProvider";
+import { Inter } from "@next/font/google";
+
+const inter = Inter({ subsets: ["latin-ext"] });
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html className="bg-[#070423] bg-no-repeat bg-fixed">
+    <html
+      className={`bg-brand-base bg-no-repeat bg-fixed ${inter.className} text-white`}
+    >
       <head>
         <meta rel="viewport" content="width=device-width, initial-scale=1" />
         <title>Pract-o-Music</title>
