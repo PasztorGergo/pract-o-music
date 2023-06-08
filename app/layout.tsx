@@ -5,7 +5,7 @@ import MusicProvider from "context/MusicProvider";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html className="bg-[linear-gradient(#ffffff_0%,#dff0ff_100%)] bg-no-repeat bg-fixed">
+    <html className="bg-[#070423] bg-no-repeat bg-fixed">
       <head>
         <meta rel="viewport" content="width=device-width, initial-scale=1" />
         <title>Pract-o-Music</title>

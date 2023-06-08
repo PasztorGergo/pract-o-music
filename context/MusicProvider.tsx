@@ -40,7 +40,12 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     if (currentMusic) {
       currentMusic!.file.volume = volume || 0.45;
     }
-  }, [volume, currentMusic?.id, currentMusic?.file.currentTime]);
+  }, [
+    volume,
+    currentMusic?.id,
+    currentMusic?.file.currentTime,
+    currentMusic?.file.paused,
+  ]);
 
   useEffect(() => {
     global.localStorage.setItem(

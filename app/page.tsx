@@ -24,7 +24,7 @@ const HomePage = () => {
 
   return (
     <>
-      <aside className="flex w-full flex-col justify-start gap-8 md:w-1/3">
+      <aside className="flex w-full flex-col justify-start gap-8 md:w-1/3 bg-white rounded-lg p-4">
         {musicArray && musicArray?.length > 0 ? (
           <>
             <AnimatePresence>
