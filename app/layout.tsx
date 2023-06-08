@@ -16,7 +16,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <title>Pract-o-Music</title>
       </head>
       <MusicProvider>
-        <body className="flex px-8 md:px-24 py-8 gap-8 md:flex-row flex-col items-center md:items-stretch">
+        <body className="flex px-8 md:px-24 py-8 gap-4 md:flex-row flex-col items-center md:items-stretch">
           {children}
         </body>
       </MusicProvider>

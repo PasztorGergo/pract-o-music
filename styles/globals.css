@@ -28,3 +28,9 @@ a {
     background: black;
   }
 }
+input[type="range"]::-webkit-slider-thumb {
+  @apply h-2 w-2 border border-white;
+}
+input[type="range"]::-moz-range-progress {
+  @apply bg-white bg-opacity-100;
+}

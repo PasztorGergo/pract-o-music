@@ -36,10 +36,8 @@ export const MusicCard = ({ music }: { music: Music }) => {
         transition: { type: "spring", stiffness: 60, bounce: 0 },
       }}
       className={`rounded-lg p-4 ${
-        currentMusic?.id === music.id
-          ? "shadow-md bg-slate-300"
-          : "shadow-sm bg-slate-200"
-      }  text-slate-800 w-full grid gap-x-4 [grid-template-columns:1fr_3fr] grid-rows-2 transition-all`}
+        currentMusic?.id === music.id ? "shadow-md" : "shadow-sm"
+      }  text-white w-full bg-brand-base grid gap-x-4 [grid-template-columns:1fr_3fr] grid-rows-2 transition-all`}
     >
       {music.img && music.img !== "" ? (
         <Image
@@ -50,11 +48,11 @@ export const MusicCard = ({ music }: { music: Music }) => {
           height={72}
         />
       ) : (
-        <div className="row-span-2 row-start-1 col-span-1 col-start-1 text-3xl w-[4.5rem] h-[4.5rem] aspect-square rounded-lg bg-[linear-gradient(135deg,#1CD8D2_0%,#93EDC7_100%)] p-2 grid place-items-center">
-          <RiMusicFill className="text-black "> </RiMusicFill>
+        <div className="row-span-2 row-start-1 col-span-1 col-start-1 text-3xl w-[4.5rem] h-[4.5rem] aspect-square rounded-lg bg-brand-light p-2 grid place-items-center">
+          <RiMusicFill className="text-white "> </RiMusicFill>
         </div>
       )}
-      <h2 className="font-bold col-span-1 row-span-1 row-start-1 col-start-2 text-slate-800">
+      <h2 className="font-bold col-span-1 row-span-1 row-start-1 col-start-2 text-white">
         {music.title}
       </h2>
       <div className="flex justify-start items-center gap-4">
@@ -66,7 +64,7 @@ export const MusicCard = ({ music }: { music: Music }) => {
             }
             removeFromArray!(music.id);
           }}
-          className="cursor-pointer fill-slate-800 h-8 w-8"
+          className="cursor-pointer text-white h-8 w-8"
         ></RiCloseCircleFill>
         {paused ? (
           <RiPlayCircleFill
@@ -80,11 +78,11 @@ export const MusicCard = ({ music }: { music: Music }) => {
               music.file.play();
               setPaused(false);
             }}
-            className="cursor-pointer fill-slate-800 h-8 w-8"
+            className="cursor-pointer text-white h-8 w-8"
           ></RiPlayCircleFill>
         ) : (
           <RiPauseCircleFill
-            className="cursor-pointer fill-slate-800 h-8 w-8"
+            className="cursor-pointer text-white h-8 w-8"
             onClick={() => {
               music.file.pause();
               setPaused(true);

@@ -29,14 +29,14 @@ export const Display = () => {
 
   return (
     <>
-      <div className="row-span-2 row-start-1 col-span-1 col-start-1 text-3xl w-full h-2/3 rounded-lg bg-[linear-gradient(135deg,#1CD8D2_0%,#93EDC7_100%)] p-2 grid place-items-center">
-        <RiMusicFill className="text-black "></RiMusicFill>
+      <div className="row-span-2 row-start-1 col-span-1 col-start-1 w-full h-2/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4 grid place-items-center">
+        <RiMusicFill className="text-white text-[64px]"></RiMusicFill>
+        <h2 className="text-center font-bold">{currentMusic?.title}</h2>
       </div>
-      <h2 className="text-center">{currentMusic?.title}</h2>
-      <div className="flex w-full gap-4 items-center">
+      <div className="flex w-full gap-4 items-center p-4 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg">
         <input
           type="range"
-          className="grow-[0.7] h-1 appearance-none bg-[#93EDC7] rounded-lg accent-[#1CD8D2]"
+          className="grow-[0.7] h-1 appearance-none bg-white bg-opacity-80 rounded-lg accent-white"
           value={currentMusic!.file.currentTime}
           max={currentMusic?.file.duration}
           min={0}
@@ -59,7 +59,7 @@ export const Display = () => {
         <div className="flex items-center justify-end gap-4 grow-[0.3]">
           {currentMusic!.file.volume === 0 ? (
             <RiVolumeMuteFill
-              className="text-2xl text-slate-800 cursor-pointer"
+              className="text-2xl text-white cursor-pointer"
               onClick={() => {
                 //@ts-ignore
                 currentMusic!.file.volume = volume === 0 ? 0.45 : volume;
@@ -67,14 +67,14 @@ export const Display = () => {
             ></RiVolumeMuteFill>
           ) : volume! < 0.5 ? (
             <RiVolumeDownFill
-              className="text-2xl text-slate-800 cursor-pointer"
+              className="text-2xl text-white cursor-pointer"
               onClick={() => {
                 currentMusic!.file.volume = 0;
               }}
             ></RiVolumeDownFill>
           ) : (
             <RiVolumeUpFill
-              className="text-2xl text-slate-800 cursor-pointer"
+              className="text-2xl text-white cursor-pointer"
               onClick={() => {
                 currentMusic!.file.volume = 0;
               }}
@@ -82,7 +82,7 @@ export const Display = () => {
           )}
           <input
             type="range"
-            className="h-1 appearance-none bg-[#93EDC7] rounded-lg accent-[#1CD8D2]"
+            className="h-1 appearance-none bg-white bg-opacity-80 rounded-lg accent-white"
             min={0}
             max={1}
             step={0.01}

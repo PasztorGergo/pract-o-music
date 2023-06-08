@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import React, { useRef } from "react";
 import { Display, MusicCard } from "components";
 import { useMusic } from "context/MusicProvider";
-import { RiAddCircleFill, RiMusicFill } from "react-icons/ri";
+import { RiAddCircleFill, RiMusicFill, RiRepeatFill } from "react-icons/ri";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 
@@ -26,8 +26,11 @@ const HomePage = () => {
     <>
       <aside className="flex w-full flex-col justify-start gap-8 md:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-bold text-base uppercase">playlist</h2>
-          <label className="cursor-pointer" htmlFor="file">
+          <h2 className="font-bold text-base uppercase grow-[0.7]">playlist</h2>
+          <div className="grid w-[26.67px] aspect-square rounded-full place-items-center bg-white text-black mix-blend-multiply">
+            <RiRepeatFill className="text-base"></RiRepeatFill>
+          </div>
+          <label className="cursor-pointer grow-[0.15]" htmlFor="file">
             <RiAddCircleFill className="text-white text-[32px] "></RiAddCircleFill>
           </label>
           <input
@@ -59,7 +62,7 @@ const HomePage = () => {
           </div>
         )}
       </aside>
-      <main className="md:w-2/3 w-full min-h-full max-h-screen flex flex-col justify-between items-center">
+      <main className="md:w-2/3 w-full min-h-full max-h-screen flex flex-col gap-4 items-center">
         {currentMusic ? (
           <Display />
         ) : (
