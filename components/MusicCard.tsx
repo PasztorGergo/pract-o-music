@@ -12,20 +12,21 @@ import { motion } from "framer-motion";
 
 export const MusicCard = ({ music }: { music: Music }) => {
   const { currentMusic, setCurrentMusic, removeFromArray } = useMusic();
-  const [paused, setPaused] = useState<boolean>(true);
+  const [paused, setPaused] = useState<boolean>(
+    currentMusic?.file.paused || true
+  );
 
   useEffect(() => {
     if (currentMusic?.id !== music.id) {
       setPaused(true);
     }
-  }, [currentMusic]);
 
-  useEffect(() => {
-    if (currentMusic?.file.ended) {
+    if (music.file.paused || music.file.paused === undefined) {
       setPaused(true);
-      currentMusic.file.pause();
+    } else {
+      setPaused(false);
     }
-  }, [currentMusic?.file.ended]);
+  }, [currentMusic]);
 
   return (
     <motion.div

@@ -50,23 +50,34 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     currentMusic?.file.paused,
   ]);
 
+  if (currentMusic && repeatMode === "repeat-all") {
+    currentMusic.file.onended = (e) => {
+      if (currentMusic.id === musicArray.at(-1)?.id) {
+        musicArray[0].file.play();
+        setCurrentMusic(musicArray[0]);
+      } else {
+        musicArray[currentMusic?.id! + 1].file.play();
+        setCurrentMusic((x) => musicArray[x?.id! + 1]);
+      }
+    };
+  }
+
   useEffect(() => {
+    console.log(currentMusic?.file.ended);
     if (currentMusic) {
       currentMusic.file.volume = volume;
       if (repeatMode === "repeat-all" && currentMusic.file.ended) {
-        currentMusic.id === musicArray.length - 1
-          ? () => {
-              musicArray[0].file.play();
-              setCurrentMusic(musicArray[0]);
-            }
-          : () => {
-              musicArray[currentMusic?.id! + 1].file.play();
-              setCurrentMusic((x) => musicArray[x?.id! + 1]);
-            };
+        if (currentMusic.id === musicArray.at(-1)?.id) {
+          musicArray[0].file.play();
+          setCurrentMusic(musicArray[0]);
+        } else {
+          musicArray[currentMusic?.id! + 1].file.play();
+          setCurrentMusic((x) => musicArray[x?.id! + 1]);
+        }
       } else if (repeatMode === "repeat-one") {
         currentMusic.file.loop = true;
-      } else if (currentMusic.file.ended) {
-        currentMusic.file.pause();
+      } else {
+        currentMusic.file.loop = false;
       }
     }
   }, [currentMusic?.file.ended, repeatMode, currentMusic?.id]);

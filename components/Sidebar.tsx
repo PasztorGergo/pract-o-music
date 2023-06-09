@@ -58,10 +58,11 @@ export const Sidebar = () => {
         </label>
         <input
           onChange={(e) => {
-            uploadMusic(
-              URL.createObjectURL(e.target.files![0]),
-              e.target.files![0].name.replace(".mp3", "")
-            );
+            e.target.files &&
+              uploadMusic(
+                URL.createObjectURL(e.target.files![0]),
+                e.target.files![0].name.replace(".mp3", "")
+              );
           }}
           type="file"
           id="file"
