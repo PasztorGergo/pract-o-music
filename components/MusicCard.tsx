@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import {
   RiPlayCircleFill,
@@ -19,6 +19,13 @@ export const MusicCard = ({ music }: { music: Music }) => {
       setPaused(true);
     }
   }, [currentMusic]);
+
+  useEffect(() => {
+    if (currentMusic?.file.ended) {
+      setPaused(true);
+      currentMusic.file.pause();
+    }
+  }, [currentMusic?.file.ended]);
 
   return (
     <motion.div

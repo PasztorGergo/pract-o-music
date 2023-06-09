@@ -41,19 +41,7 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (currentMusic) {
-      currentMusic!.file.volume = volume || 0.45;
-      if (repeatMode === "repeat-all" && currentMusic.file.ended) {
-        currentMusic.file.pause();
-        currentMusic.id === musicArray.length - 1
-          ? setCurrentMusic(musicArray[0])
-          : setCurrentMusic(musicArray[currentMusic.id + 1]);
-        currentMusic.file.play();
-      } else if (repeatMode === "repeat-one" && currentMusic.file.ended) {
-        currentMusic.file.currentTime = 0;
-        currentMusic.file.play();
-      } else if (currentMusic.file.ended) {
-        currentMusic.file.pause();
-      }
+      currentMusic.file.volume = volume;
     }
   }, [
     volume,
@@ -61,6 +49,27 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     currentMusic?.file.currentTime,
     currentMusic?.file.paused,
   ]);
+
+  useEffect(() => {
+    if (currentMusic) {
+      currentMusic.file.volume = volume;
+      if (repeatMode === "repeat-all" && currentMusic.file.ended) {
+        currentMusic.id === musicArray.length - 1
+          ? () => {
+              musicArray[0].file.play();
+              setCurrentMusic(musicArray[0]);
+            }
+          : () => {
+              musicArray[currentMusic?.id! + 1].file.play();
+              setCurrentMusic((x) => musicArray[x?.id! + 1]);
+            };
+      } else if (repeatMode === "repeat-one") {
+        currentMusic.file.loop = true;
+      } else if (currentMusic.file.ended) {
+        currentMusic.file.pause();
+      }
+    }
+  }, [currentMusic?.file.ended, repeatMode, currentMusic?.id]);
 
   useEffect(() => {
     global.localStorage.setItem(

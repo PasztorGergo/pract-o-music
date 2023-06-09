@@ -23,7 +23,7 @@ const HomePage = () => {
               height={456}
               className="rounded-lg"
             />
-            <h2 className="text-slate-800 text-opacity-50 uppercase font-bold text-center text-sm">
+            <h2 className="text-white text-opacity-80 uppercase font-bold text-center text-sm">
               No music is playing
             </h2>
           </>
