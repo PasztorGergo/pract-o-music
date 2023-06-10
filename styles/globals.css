@@ -19,18 +19,24 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
 input[type="range"]::-webkit-slider-thumb {
   @apply h-2 w-2 border border-white;
 }
 input[type="range"]::-moz-range-progress {
   @apply bg-white bg-opacity-100;
+}
+
+*::-webkit-scrollbar {
+  @apply w-1;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-white;
+}
+*::-webkit-scrollbar-track {
+  @apply bg-white bg-opacity-50 rounded-full;
+}
+* {
+  scrollbar-width: theme(width.1);
+  scrollbar-color: #fff;
 }

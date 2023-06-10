@@ -20,7 +20,7 @@ export const Sidebar = () => {
     console.log(musicArray);
   };
   return (
-    <aside className="flex w-full flex-col justify-start gap-8 md:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
+    <aside className="flex h-[calc(100vh-4rem)] w-full flex-col justify-start gap-8 md:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-base uppercase grow-[0.7]">playlist</h2>
         <div
@@ -70,21 +70,23 @@ export const Sidebar = () => {
           accept=".mp3"
         />
       </div>
-      {musicArray && musicArray?.length > 0 ? (
-        <>
-          <AnimatePresence>
-            {musicArray?.map((music) => (
-              <MusicCard key={music.id} music={music}></MusicCard>
-            ))}
-          </AnimatePresence>
-        </>
-      ) : (
-        <div className="flex flex-col h-full items-center gap-4 justify-center">
-          <p className="font-thin uppercase text-opacity-50 text-center">
-            Add your own music by clicking on the plus button
-          </p>
-        </div>
-      )}
+      <div className="overflow-x-hidden overflow-y-scroll flex flex-col p-2 gap-4 h-full">
+        {musicArray && musicArray?.length > 0 ? (
+          <>
+            <AnimatePresence>
+              {musicArray?.map((music) => (
+                <MusicCard key={music.id} music={music}></MusicCard>
+              ))}
+            </AnimatePresence>
+          </>
+        ) : (
+          <div className="flex flex-col items-center gap-4 justify-center">
+            <p className="font-thin uppercase text-opacity-50 text-center">
+              Add your own music by clicking on the plus button
+            </p>
+          </div>
+        )}
+      </div>
     </aside>
   );
 };
