@@ -7,17 +7,20 @@ import React, {
   useEffect,
 } from "react";
 
-const MusicContext = createContext<{
-  musicArray?: Array<Music>;
-  removeFromArray?: (removeId: number) => void;
-  pushMusic?: (music: Music) => void;
-  currentMusic?: Music;
-  setCurrentMusic?: React.Dispatch<React.SetStateAction<Music | undefined>>;
-  volume?: number;
-  setVolume?: React.Dispatch<React.SetStateAction<number>>;
-  repeatMode?: Repeat;
-  setRepeatMode?: React.Dispatch<React.SetStateAction<Repeat>>;
-}>({});
+const MusicContext = createContext<
+  | {
+      musicArray: Array<Music>;
+      removeFromArray: (removeId: number) => void;
+      pushMusic: (music: Music) => void;
+      currentMusic?: Music;
+      setCurrentMusic: React.Dispatch<React.SetStateAction<Music | undefined>>;
+      volume: number;
+      setVolume: React.Dispatch<React.SetStateAction<number>>;
+      repeatMode: Repeat;
+      setRepeatMode: React.Dispatch<React.SetStateAction<Repeat>>;
+    }
+  | undefined
+>(undefined);
 
 export const useMusic = () => {
   return useContext(MusicContext);

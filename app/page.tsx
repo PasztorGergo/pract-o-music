@@ -6,12 +6,12 @@ import Image from "next/image";
 import { Sidebar } from "components/Sidebar";
 
 const HomePage = () => {
-  const { currentMusic } = useMusic();
+  const { currentMusic } = useMusic()!;
 
   return (
     <>
       <Sidebar />
-      <main className="md:w-2/3 w-full min-h-full max-h-screen flex flex-col gap-4 items-center">
+      <main className="md:w-2/3 w-full h-[50vh] flex flex-col gap-4 items-center">
         {currentMusic ? (
           <Display />
         ) : (

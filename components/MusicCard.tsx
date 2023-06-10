@@ -11,7 +11,7 @@ import { useMusic } from "context/MusicProvider";
 import { motion } from "framer-motion";
 
 export const MusicCard = ({ music }: { music: Music }) => {
-  const { currentMusic, setCurrentMusic, removeFromArray } = useMusic();
+  const { currentMusic, setCurrentMusic, removeFromArray } = useMusic()!;
   const [paused, setPaused] = useState<boolean>(
     currentMusic?.file.paused || true
   );
@@ -26,7 +26,7 @@ export const MusicCard = ({ music }: { music: Music }) => {
     } else {
       setPaused(false);
     }
-  }, [currentMusic]);
+  }, [currentMusic?.file]);
 
   return (
     <motion.div
@@ -70,7 +70,7 @@ export const MusicCard = ({ music }: { music: Music }) => {
               currentMusic?.file.pause();
               setCurrentMusic!(undefined);
             }
-            removeFromArray!(music.id);
+            removeFromArray(music.id);
           }}
           className="cursor-pointer text-white h-8 w-8"
         ></RiCloseCircleFill>
@@ -81,7 +81,7 @@ export const MusicCard = ({ music }: { music: Music }) => {
                 currentMusic?.file.pause();
                 //@ts-ignore
                 currentMusic?.file.currentTime = 0;
-                setCurrentMusic!(music);
+                setCurrentMusic(music);
               }
               music.file.play();
               setPaused(false);

@@ -7,13 +7,13 @@ import { RiAddCircleFill, RiRepeatFill, RiRepeatOneFill } from "react-icons/ri";
 import { useMusic } from "context/MusicProvider";
 
 export const Sidebar = () => {
-  const { musicArray, pushMusic, repeatMode, setRepeatMode } = useMusic();
+  const { musicArray, pushMusic, repeatMode, setRepeatMode } = useMusic()!;
   const uploadMusic = (src: string, title: string) => {
     const file = new Audio(src);
     //@ts-ignore
     pushMusic({
       title,
-      id: musicArray ? musicArray?.length : 0,
+      id: musicArray ? musicArray?.length - 1 : 0,
       img: "",
       file,
     });
