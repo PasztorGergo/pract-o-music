@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <>
       <Sidebar />
-      <main className="md:w-2/3 w-full h-[50vh] flex flex-col gap-4 items-center">
+      <main className="xl:w-2/3 w-full h-[50vh] flex flex-col gap-4 items-center lg:order-2 order-first">
         {currentMusic ? (
           <Display />
         ) : (

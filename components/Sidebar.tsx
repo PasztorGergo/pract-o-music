@@ -20,7 +20,7 @@ export const Sidebar = () => {
     console.log(musicArray);
   };
   return (
-    <aside className="flex h-[calc(100vh-4rem)] w-full flex-col justify-start gap-8 md:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
+    <aside className="flex h-[calc(100vh-4rem)] w-full flex-col justify-start gap-8 xl:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-base uppercase grow-[0.7]">playlist</h2>
         <div

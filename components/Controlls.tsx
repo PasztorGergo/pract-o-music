@@ -2,7 +2,7 @@
 
 import { useMusic } from "context/MusicProvider";
 import { Music } from "models";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   RiPauseFill,
   RiPlayFill,
@@ -15,6 +15,23 @@ export const Controlls = ({ currentMusic }: { currentMusic: Music }) => {
   const [paused, setPaused] = useState<boolean>(
     currentMusic?.file.paused || true
   );
+
+  useEffect(() => {
+    if (
+      currentMusic.file.paused ||
+      currentMusic.file.paused === undefined ||
+      currentMusic.file.ended
+    ) {
+      setPaused(true);
+    } else {
+      setPaused(false);
+    }
+  }, [
+    currentMusic.file.paused,
+    currentMusic.file.currentTime,
+    currentMusic.file.ended,
+  ]);
+
   return (
     <div className="bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4 flex justify-between items-center text-[32px] text-white">
       <RiSkipBackFill
