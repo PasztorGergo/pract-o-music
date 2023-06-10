@@ -10,7 +10,7 @@ import React, {
 const MusicContext = createContext<
   | {
       musicArray: Array<Music>;
-      removeFromArray: (removeId: number) => void;
+      removeFromArray: (removeId: string) => void;
       pushMusic: (music: Music) => void;
       currentMusic?: Music;
       setCurrentMusic: React.Dispatch<React.SetStateAction<Music | undefined>>;
@@ -32,7 +32,7 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
   );
   const [repeatMode, setRepeatMode] = useState<Repeat>("no-repeat");
 
-  const removeFromArray = useCallback((removeId: number) => {
+  const removeFromArray = useCallback((removeId: string) => {
     setMusicArray((prev) => prev?.filter(({ id }) => id !== removeId));
   }, []);
 
@@ -59,8 +59,12 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
         musicArray[0].file.play();
         setCurrentMusic(musicArray[0]);
       } else {
-        musicArray[currentMusic?.id! + 1].file.play();
-        setCurrentMusic((x) => musicArray[x?.id! + 1]);
+        musicArray[
+          musicArray.findIndex((x) => x.id === currentMusic.id) + 1
+        ].file.play();
+        setCurrentMusic(
+          (x) => musicArray[musicArray.findIndex((y) => y.id === x?.id) + 1]
+        );
       }
     };
   }
@@ -74,8 +78,12 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
           musicArray[0].file.play();
           setCurrentMusic(musicArray[0]);
         } else {
-          musicArray[currentMusic?.id! + 1].file.play();
-          setCurrentMusic((x) => musicArray[x?.id! + 1]);
+          musicArray[
+            musicArray.findIndex((x) => x.id === currentMusic.id) + 1
+          ].file.play();
+          setCurrentMusic(
+            (x) => musicArray[musicArray.findIndex((y) => y.id === x?.id) + 1]
+          );
         }
       } else if (repeatMode === "repeat-one") {
         currentMusic.file.loop = true;

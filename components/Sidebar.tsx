@@ -13,7 +13,7 @@ export const Sidebar = () => {
     //@ts-ignore
     pushMusic({
       title,
-      id: musicArray ? musicArray?.length - 1 : 0,
+      id: src,
       img: "",
       file,
     });

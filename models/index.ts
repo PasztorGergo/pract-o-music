@@ -2,6 +2,6 @@ export interface Music {
   title: string;
   file: HTMLAudioElement;
   img?: string;
-  id: number;
+  id: string;
 }
 export type Repeat = "no-repeat" | "repeat-all" | "repeat-one";
