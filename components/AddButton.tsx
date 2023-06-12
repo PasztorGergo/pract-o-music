@@ -34,50 +34,51 @@ export const AddButton = ({
           setDropOpen((x) => !x);
         }}
       ></RiAddCircleFill>
-      <AnimatePresence></AnimatePresence>
-      {dropOpen && (
-        <Dropdown>
-          <DropdownItem
-            icon={
-              <RiSaveFill className="text-white text-opacity-80 text-2xl"></RiSaveFill>
-            }
-          >
-            <label
-              className="cursor-pointer text-white text-opacity-80"
-              htmlFor="file"
+      <AnimatePresence>
+        {dropOpen && (
+          <Dropdown>
+            <DropdownItem
+              icon={
+                <RiSaveFill className="text-white text-opacity-80 text-2xl"></RiSaveFill>
+              }
             >
-              Upload from disk
-            </label>
-            <input
-              onChange={(e) => {
-                e.target.files &&
-                  uploadMusic(
-                    URL.createObjectURL(e.target.files![0]),
-                    e.target.files![0].name.replace(".mp3", "")
-                  );
-              }}
-              type="file"
-              id="file"
-              className="hidden"
-              accept=".mp3"
-            />
-          </DropdownItem>
-          <DropdownItem
-            icon={
-              <RiGlobalFill className="text-white text-opacity-80 text-2xl"></RiGlobalFill>
-            }
-          >
-            <label
-              onClick={() => {
-                setOpen(true);
-              }}
-              className="text-white text-opacity-80"
+              <label
+                className="cursor-pointer text-white text-opacity-80"
+                htmlFor="file"
+              >
+                Upload from disk
+              </label>
+              <input
+                onChange={(e) => {
+                  e.target.files &&
+                    uploadMusic(
+                      URL.createObjectURL(e.target.files![0]),
+                      e.target.files![0].name.replace(".mp3", "")
+                    );
+                }}
+                type="file"
+                id="file"
+                className="hidden"
+                accept=".mp3"
+              />
+            </DropdownItem>
+            <DropdownItem
+              icon={
+                <RiGlobalFill className="text-white text-opacity-80 text-2xl"></RiGlobalFill>
+              }
             >
-              Search by title
-            </label>
-          </DropdownItem>
-        </Dropdown>
-      )}
+              <label
+                onClick={() => {
+                  setOpen(true);
+                }}
+                className="text-white text-opacity-80"
+              >
+                Search by title
+              </label>
+            </DropdownItem>
+          </Dropdown>
+        )}
+      </AnimatePresence>
     </>
   );
 };

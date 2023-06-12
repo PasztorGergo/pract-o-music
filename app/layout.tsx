@@ -16,13 +16,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <meta rel="viewport" content="width=device-width, initial-scale=1" />
         <title>Pract-o-Music</title>
       </head>
-      <ModalProvider>
-        <MusicProvider>
-          <body className="flex lg:flex-row px-8 md:px-24 py-8 gap-4 flex-col items-center md:items-stretch">
-            {children}
-          </body>
-        </MusicProvider>
-      </ModalProvider>
+      <MusicProvider>
+        <body className="flex lg:flex-row px-8 md:px-24 py-8 gap-4 flex-col items-center md:items-stretch">
+          <ModalProvider>{children}</ModalProvider>
+        </body>
+      </MusicProvider>
     </html>
   );
 };

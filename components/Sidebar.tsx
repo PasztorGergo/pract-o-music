@@ -3,12 +3,14 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { MusicCard } from "./MusicCard";
-import { RiAddCircleFill, RiRepeatFill, RiRepeatOneFill } from "react-icons/ri";
+import { RiRepeatFill, RiRepeatOneFill } from "react-icons/ri";
 import { useMusic } from "context/MusicProvider";
 import { AddButton } from "./AddButton";
+import { useModal } from "context/ModalProvider";
 
 export const Sidebar = () => {
   const { musicArray, repeatMode, setRepeatMode, pushMusic } = useMusic()!;
+  const { setOpen } = useModal()!;
 
   return (
     <aside className="flex h-[calc(100vh-4rem)] z-10 w-full flex-col justify-start gap-8 xl:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
