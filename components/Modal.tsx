@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { Ref } from "react";
 
 export const Modal = ({
   children,
@@ -12,7 +12,7 @@ export const Modal = ({
   return (
     <motion.div
       initial={{ scale: 0 }}
-      exit={{ scale: 1, transition: { duration: 0.3, type: "tween" } }}
+      exit={{ scale: 0, transition: { duration: 0.3, type: "tween" } }}
       animate={{ scale: 1, transition: { duration: 0.3, type: "tween" } }}
       className={`${className} rounded-lg absolute place-self-center`}
     >

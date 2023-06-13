@@ -11,6 +11,10 @@ body {
   box-sizing: border-box;
 }
 
+input {
+  @apply outline-none;
+}
+
 input[type="range"]::-webkit-slider-thumb {
   @apply h-2 w-2 border border-white;
 }

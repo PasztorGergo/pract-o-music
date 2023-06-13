@@ -21,7 +21,8 @@
     ],
     "paths": {
       "components": ["./components/index.ts"],
-      "models": ["./models/index.ts"]
+      "models": ["./models/index.ts"],
+      "utils": ["./utils"]
     },
     "baseUrl": "."
   },
