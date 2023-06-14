@@ -51,7 +51,7 @@ export const MusicCard = ({ music }: { music: Music }) => {
         <Image
           alt={music.title}
           src={music.img}
-          className="rounded-lg aspect-square row-span-2 row-start-1 col-span-1 col-start-1"
+          className="rounded-lg aspect-square row-span-2 row-start-1 col-span-1 col-start-1 object-cover"
           width={72}
           height={72}
         />

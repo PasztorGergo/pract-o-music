@@ -1,14 +1,12 @@
 import { Dropdown, DropdownItem } from "components/Dropdown";
 import { Modal } from "components/Modal";
 import { AnimatePresence, motion } from "framer-motion";
-import React, {
-  HTMLAttributes,
-  forwardRef,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useState } from "react";
 import { RiCloseFill } from "react-icons/ri";
+import { FieldValues, useForm } from "react-hook-form";
+import { useMusic } from "./MusicProvider";
+import { Music } from "models";
+import { findByTitle, findByURL } from "utils/api";
 
 const modalContext = React.createContext<
   | {
@@ -23,10 +21,36 @@ export const useModal = () => {
 };
 
 const ModalProvider = ({ children }: { children: React.ReactNode }) => {
+  const { pushMusic } = useMusic()!;
   const [open, setOpen] = useState<boolean>(false);
   const [dropdown, setDropdown] = useState<boolean>(false);
-  const [platform, setPlatform] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { register, handleSubmit, reset } = useForm();
+
+  const getSongByTitle = (data: FieldValues) => {
+    setLoading(true);
+
+    let song: Music;
+    findByTitle(data.title)
+      .then((x) => {
+        song = x;
+        pushMusic(song);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const getSongByUrl = (data: FieldValues) => {
+    setLoading(true);
+
+    let song: Music;
+    findByURL(data.url)
+      .then((x) => {
+        song = x;
+        pushMusic(song);
+      })
+      .finally(() => setLoading(false));
+  };
 
   const value = {
     open,
@@ -63,66 +87,18 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
                 <h2 className="uppercase text-sm font-bold text-center text-white">
                   Search music
                 </h2>
-                <form className="flex flex-col gap-4 items-center justify-center">
+                <form
+                  className="flex flex-col gap-4 items-center justify-center"
+                  onSubmit={handleSubmit(getSongByTitle)}
+                >
                   <input
+                    {...register("title")}
                     disabled={loading}
                     type="text"
                     id="title"
                     placeholder="Song title"
                     className="appearance-none text-base px-4 py-2 bg-white bg-opacity-[0.18] border-b-2 border-b-white focus:bg-opacity-30 transition-all"
                   />
-                  <div
-                    id="platform"
-                    onClick={() => {
-                      if (!loading) setDropdown((x) => !x);
-                    }}
-                    className="w-4/5 text-base z-10 relative text-opacity-50 px-4 py-2 bg-white bg-opacity-[0.18] border-b-2 border-b-white"
-                  >
-                    {platform ? platform : "Select Platform"}
-                    <AnimatePresence>
-                      {dropdown && (
-                        <Dropdown className="absolute w-full top-full left-0 min-h-fit">
-                          <DropdownItem className="bg-brand-light hover:bg-brand-base transition-all divide-y-2 divide-slate-500">
-                            <span
-                              onClick={() => {
-                                setPlatform("Spotify");
-                              }}
-                            >
-                              Spotify
-                            </span>
-                          </DropdownItem>
-                          <DropdownItem className="bg-brand-light hover:bg-brand-base transition-all divide-y-2 divide-slate-500">
-                            <span
-                              onClick={() => {
-                                setPlatform("Apple Music");
-                              }}
-                            >
-                              Apple Music
-                            </span>
-                          </DropdownItem>
-                          <DropdownItem className="bg-brand-light hover:bg-brand-base transition-all divide-y-2 divide-slate-500">
-                            <span
-                              onClick={() => {
-                                setPlatform("SoundCloud");
-                              }}
-                            >
-                              SoundCloud
-                            </span>
-                          </DropdownItem>
-                          <DropdownItem className="bg-brand-light hover:bg-brand-base transition-all divide-y-2 divide-slate-500">
-                            <span
-                              onClick={() => {
-                                setPlatform("YouTube");
-                              }}
-                            >
-                              YouTube
-                            </span>
-                          </DropdownItem>
-                        </Dropdown>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
                   <button
                     disabled={loading}
                     type="submit"
@@ -134,18 +110,26 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
                 <p className="uppercase text-2xl text-white font-normal text-center">
                   or
                 </p>
-                <form action="" className="flex justify-center">
+                <form
+                  action=""
+                  className="flex justify-center"
+                  onSubmit={handleSubmit(getSongByUrl)}
+                >
                   <input
                     type="text"
                     className="appearance-none text-base px-4 py-2 bg-white bg-opacity-[0.18] border-b-2 border-b-white focus:bg-opacity-30 transition-all"
                     id="url"
                     placeholder="Enter URL"
                     disabled={loading}
+                    {...register("url")}
                   />
                   <button
                     disabled={loading}
                     className="disabled:bg-slate-200 disabled:hover:bg-slate-200 disabled:hover:text-brand-light rounded-r-lg px-4 hover:bg-slate-200 bg-white uppercase text-sm font-bold rounded-l-none text-center text-brand-light"
                     type="submit"
+                    onClick={() => {
+                      reset();
+                    }}
                   >
                     add
                   </button>

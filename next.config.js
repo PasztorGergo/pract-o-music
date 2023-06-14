@@ -6,7 +6,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["media.tenor.com"],
+    domains: ["media.tenor.com", "i.ytimg.com"],
   },
   env: {
     RAPID_KEY: process.env.RAPID_KEY,
