@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import MusicProvider from "context/MusicProvider";
 import { Inter } from "@next/font/google";
 import ModalProvider from "context/ModalProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin-ext"] });
 
@@ -19,6 +20,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <MusicProvider>
         <body className="flex lg:flex-row px-8 md:px-24 py-8 gap-4 flex-col items-center md:items-stretch">
           <ModalProvider>{children}</ModalProvider>
+          <Toaster></Toaster>
         </body>
       </MusicProvider>
     </html>

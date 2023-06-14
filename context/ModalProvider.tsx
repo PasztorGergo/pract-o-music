@@ -7,6 +7,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useMusic } from "./MusicProvider";
 import { Music } from "models";
 import { findByTitle, findByURL } from "utils/api";
+import toast from "react-hot-toast";
 
 const modalContext = React.createContext<
   | {
@@ -23,33 +24,50 @@ export const useModal = () => {
 const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const { pushMusic } = useMusic()!;
   const [open, setOpen] = useState<boolean>(false);
-  const [dropdown, setDropdown] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, resetField } = useForm();
 
   const getSongByTitle = (data: FieldValues) => {
     setLoading(true);
-
     let song: Music;
-    findByTitle(data.title)
+
+    toast
+      .promise(findByTitle(data.title), {
+        error: "Couldn't find the song",
+        loading: "Searching...",
+        success: "Successfully added the song",
+      })
       .then((x) => {
         song = x;
         pushMusic(song);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        resetField("title");
+        setOpen(false);
+      });
   };
 
   const getSongByUrl = (data: FieldValues) => {
     setLoading(true);
-
     let song: Music;
-    findByURL(data.url)
+
+    toast
+      .promise(findByURL(data.url), {
+        error: "Couldn't find the song",
+        loading: "Searching...",
+        success: "Successfully added the song",
+      })
       .then((x) => {
         song = x;
         pushMusic(song);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        resetField("url");
+        setOpen(false);
+      });
   };
 
   const value = {
@@ -127,9 +145,6 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
                     disabled={loading}
                     className="disabled:bg-slate-200 disabled:hover:bg-slate-200 disabled:hover:text-brand-light rounded-r-lg px-4 hover:bg-slate-200 bg-white uppercase text-sm font-bold rounded-l-none text-center text-brand-light"
                     type="submit"
-                    onClick={() => {
-                      reset();
-                    }}
                   >
                     add
                   </button>
