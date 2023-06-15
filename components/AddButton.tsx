@@ -4,6 +4,7 @@ import { RiAddCircleFill, RiGlobalFill, RiSaveFill } from "react-icons/ri";
 import { Dropdown, DropdownItem } from "./Dropdown";
 import { AnimatePresence } from "framer-motion";
 import { useModal } from "context/ModalProvider";
+import { toast } from "react-hot-toast";
 
 export const AddButton = ({
   musicArray,
@@ -15,14 +16,22 @@ export const AddButton = ({
   const { setOpen } = useModal()!;
   const [dropOpen, setDropOpen] = useState<boolean>(false);
   const uploadMusic = (src: string, title: string) => {
-    const file = new Audio(src);
-    pushMusic({
-      title,
-      id: src,
-      img: "",
-      file,
-    });
-    console.log(musicArray);
+    try {
+      const file = new Audio(src);
+      pushMusic({
+        title,
+        id: src,
+        img: "",
+        file,
+      });
+      toast.success("Song was added", {
+        duration: 5000,
+      });
+    } catch (error) {
+      toast.error("Something went wrong", {
+        duration: 5000,
+      });
+    }
   };
   return (
     <>
