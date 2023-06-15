@@ -11,17 +11,19 @@ import { useMusic } from "context/MusicProvider";
 import { motion } from "framer-motion";
 
 export const MusicCard = ({ music }: { music: Music }) => {
-  const { currentMusic, setCurrentMusic, removeFromArray } = useMusic()!;
-  const [paused, setPaused] = useState<boolean>(
-    currentMusic?.file.paused || true
-  );
+  const { currentMusic, setCurrentMusic, removeFromArray, setPaused, paused } =
+    useMusic()!;
+  const [musicPause, setMusicPause] = useState<boolean>(true);
 
   useEffect(() => {
     if (currentMusic?.id !== music.id) {
-      setPaused(true);
+      setMusicPause(true);
     }
 
-    if (music.file.paused || music.file.paused === undefined) {
+    if (
+      (music.file.paused || music.file.paused === undefined) &&
+      currentMusic?.id === music.id
+    ) {
       setPaused(true);
     } else {
       setPaused(false);
@@ -74,7 +76,31 @@ export const MusicCard = ({ music }: { music: Music }) => {
           }}
           className="cursor-pointer text-white h-8 w-8"
         ></RiCloseCircleFill>
-        {paused ? (
+        {music.id === currentMusic?.id ? (
+          paused ? (
+            <RiPlayCircleFill
+              onClick={() => {
+                if (currentMusic?.id !== music.id) {
+                  currentMusic?.file.pause();
+                  //@ts-ignore
+                  currentMusic?.file.currentTime = 0;
+                  setCurrentMusic(music);
+                }
+                music.file.play();
+                setPaused(false);
+              }}
+              className="cursor-pointer text-white h-8 w-8"
+            ></RiPlayCircleFill>
+          ) : (
+            <RiPauseCircleFill
+              className="cursor-pointer text-white h-8 w-8"
+              onClick={() => {
+                music.file.pause();
+                setPaused(true);
+              }}
+            ></RiPauseCircleFill>
+          )
+        ) : musicPause ? (
           <RiPlayCircleFill
             onClick={() => {
               if (currentMusic?.id !== music.id) {

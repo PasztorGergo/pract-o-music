@@ -13,18 +13,18 @@ export const Playback = ({ currentMusic }: { currentMusic: Music }) => {
     currentMusic?.file.currentTime || 0
   );
   const interval = setInterval(() => {
-    setMusicTime(currentMusic!.file.currentTime);
+    if (currentMusic) {
+      setMusicTime(currentMusic.file.currentTime);
+    }
   }, 1000);
 
   useEffect(() => {
-    setMusicTime(currentMusic!.file.currentTime);
-    interval;
-
+    if (currentMusic) {
+      setMusicTime(currentMusic.file.currentTime);
+      interval;
+    }
     return () => clearInterval(interval);
   }, []);
-  useEffect(() => {
-    clearInterval(interval);
-  }, [currentMusic?.id]);
   return (
     <div className="flex w-full gap-4 items-center p-4 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg">
       <input

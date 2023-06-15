@@ -21,7 +21,8 @@ const HomePage = () => {
               alt="no music is playing gif"
               width={300}
               height={456}
-              className="rounded-lg"
+              className="rounded-lg w-auto h-auto"
+              priority
             />
             <h2 className="text-white text-opacity-80 uppercase font-bold text-center text-sm">
               No music is playing

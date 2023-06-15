@@ -18,6 +18,8 @@ const MusicContext = createContext<
       setVolume: React.Dispatch<React.SetStateAction<number>>;
       repeatMode: Repeat;
       setRepeatMode: React.Dispatch<React.SetStateAction<Repeat>>;
+      paused: boolean;
+      setPaused: React.Dispatch<React.SetStateAction<boolean>>;
     }
   | undefined
 >(undefined);
@@ -40,6 +42,9 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     setMusicArray((prev) => [...prev, music]);
   }, []);
   const [currentMusic, setCurrentMusic] = useState<Music>();
+  const [paused, setPaused] = useState<boolean>(
+    currentMusic?.file.paused ?? true
+  );
   const [volume, setVolume] = useState<number>(0.45);
 
   useEffect(() => {
@@ -68,6 +73,16 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
   }
+
+  useEffect(() => {
+    if (currentMusic) {
+      if (paused) {
+        currentMusic.file.pause();
+      } else {
+        currentMusic.file.play();
+      }
+    }
+  }, [paused]);
 
   useEffect(() => {
     console.log(currentMusic?.file.ended);
@@ -112,6 +127,8 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     setVolume,
     repeatMode,
     setRepeatMode,
+    paused,
+    setPaused,
   };
   return (
     <MusicContext.Provider value={value}>{children}</MusicContext.Provider>

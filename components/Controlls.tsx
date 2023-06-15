@@ -11,26 +11,7 @@ import {
 } from "react-icons/ri";
 
 export const Controlls = ({ currentMusic }: { currentMusic: Music }) => {
-  const { setCurrentMusic, musicArray } = useMusic()!;
-  const [paused, setPaused] = useState<boolean>(
-    currentMusic?.file.paused || true
-  );
-
-  useEffect(() => {
-    if (
-      currentMusic.file.paused ||
-      currentMusic.file.paused === undefined ||
-      currentMusic.file.ended
-    ) {
-      setPaused(true);
-    } else {
-      setPaused(false);
-    }
-  }, [
-    currentMusic.file.paused,
-    currentMusic.file.currentTime,
-    currentMusic.file.ended,
-  ]);
+  const { setCurrentMusic, musicArray, paused, setPaused } = useMusic()!;
 
   useEffect(() => {
     if (paused) {

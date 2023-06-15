@@ -43,12 +43,12 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
           song = x;
           pushMusic(song);
         }
+        setOpen(false);
       })
       .catch((x) => x)
       .finally(() => {
         setLoading(false);
         resetField("title");
-        setOpen(false);
       });
   };
 
@@ -67,12 +67,12 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
           song = x;
           pushMusic(song);
         }
+        setOpen(false);
       })
       .catch((x) => x)
       .finally(() => {
         setLoading(false);
         resetField("url");
-        setOpen(false);
       });
   };
 
