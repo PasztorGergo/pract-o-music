@@ -29,8 +29,22 @@ export const findByTitle = async (songTitle: string) => {
       )
     ).json();
 
+    if (audioRes.isRegionRestricted) {
+      throw new Error("The song is region restricted");
+    }
+
+    const parsedUrl = new URL(
+      audioRes.audios.items[0].url
+        .replace("https://ymd.dlod.link/?u=", "")
+        .replaceAll("%2F", "/")
+        .replaceAll("%3D", "=")
+        .replaceAll("%3A", ":")
+        .replaceAll("%3F", "?")
+        .replaceAll("%26", "&")
+    ).toString();
+
     const music: Music = {
-      file: new Audio(new URL(audioRes.audios.items[0].url).toString()),
+      file: new Audio(parsedUrl),
       id,
       title,
       img: thumbnails[0].url,
@@ -38,7 +52,9 @@ export const findByTitle = async (songTitle: string) => {
 
     return music;
   } catch {
-    throw new Error("Couldn't find song by title");
+    throw new Error(
+      "The song is either region restricted or couldn't be found"
+    );
   }
 };
 export const findByURL = async (url: string) => {
@@ -58,10 +74,24 @@ export const findByURL = async (url: string) => {
       )
     ).json();
 
+    if (res.isRegionRestricted) {
+      throw new Error("The song is region restricted");
+    }
+
     const { audios, thumbnails, id, title } = res;
 
+    const parsedUrl = new URL(
+      audios.items[0].url
+        .replace("https://ymd.dlod.link/?u=", "")
+        .replaceAll("%2F", "/")
+        .replaceAll("%3D", "=")
+        .replaceAll("%3A", ":")
+        .replaceAll("%3F", "?")
+        .replaceAll("%26", "&")
+    ).toString();
+
     const music: Music = {
-      file: new Audio(audios.items[0].url),
+      file: new Audio(parsedUrl),
       id,
       title,
       img: thumbnails[0].url,
@@ -70,7 +100,7 @@ export const findByURL = async (url: string) => {
     return music;
   } catch {
     throw new Error(
-      "Couldn't find song by URL please check whether it is correct"
+      "The song is either region restricted or couldn't be found"
     );
   }
 };

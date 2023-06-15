@@ -34,14 +34,17 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 
     toast
       .promise(findByTitle(data.title), {
-        error: "Couldn't find the song",
+        error: "The song is either region restricted\nor couldn't be found",
         loading: "Searching...",
         success: "Successfully added the song",
       })
       .then((x) => {
-        song = x;
-        pushMusic(song);
+        if (x.id) {
+          song = x;
+          pushMusic(song);
+        }
       })
+      .catch((x) => x)
       .finally(() => {
         setLoading(false);
         resetField("title");
@@ -55,14 +58,17 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 
     toast
       .promise(findByURL(data.url), {
-        error: "Couldn't find the song",
+        error: "The song is either region restricted\nor couldn't be found",
         loading: "Searching...",
         success: "Successfully added the song",
       })
       .then((x) => {
-        song = x;
-        pushMusic(song);
+        if (x.id) {
+          song = x;
+          pushMusic(song);
+        }
       })
+      .catch((x) => x)
       .finally(() => {
         setLoading(false);
         resetField("url");
