@@ -25,12 +25,19 @@ export const Playback = ({ currentMusic }: { currentMusic: Music }) => {
     }
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (currentMusic.file.ended) {
+      clearInterval(interval);
+    }
+  }, [currentMusic.file.ended]);
+
   return (
     <div className="flex w-full gap-4 items-center p-4 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg">
       <input
         type="range"
         className="grow-[0.7] h-1 appearance-none bg-white bg-opacity-80 rounded-lg accent-white"
-        value={currentMusic?.file.currentTime}
+        value={musicTime}
         max={currentMusic?.file.duration}
         min={0}
         onChange={(e) => {
