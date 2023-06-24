@@ -57,26 +57,27 @@ export const Playback = ({ currentMusic }: { currentMusic: Music }) => {
         }}
       />
       <div className="flex items-center justify-end gap-4 grow-[0.3]">
-        {currentMusic?.file.volume === 0 ? (
+        {currentMusic?.file.volume === 0 || currentMusic.file.muted ? (
           <RiVolumeMuteFill
             className="text-2xl text-white cursor-pointer"
             onClick={() => {
               //@ts-ignore
               currentMusic?.file.volume = volume === 0 ? 0.45 : volume;
+              currentMusic.file.muted = false;
             }}
           ></RiVolumeMuteFill>
         ) : volume! < 0.5 ? (
           <RiVolumeDownFill
             className="text-2xl text-white cursor-pointer"
             onClick={() => {
-              if (currentMusic) currentMusic.file.volume = 0;
+              if (currentMusic) currentMusic.file.muted = true;
             }}
           ></RiVolumeDownFill>
         ) : (
           <RiVolumeUpFill
             className="text-2xl text-white cursor-pointer"
             onClick={() => {
-              if (currentMusic) currentMusic.file.volume = 0;
+              if (currentMusic) currentMusic.file.muted = true;
             }}
           ></RiVolumeUpFill>
         )}
