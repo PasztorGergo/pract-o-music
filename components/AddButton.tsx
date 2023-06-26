@@ -48,7 +48,7 @@ export const AddButton = ({
           <Dropdown className="absolute lg:top-0 lg:-right-48 top-full right-0 w-fit h-fit flex flex-col bg-brand-light rounded-lg">
             <DropdownItem
               icon={
-                <RiSaveFill className="text-white text-opacity-80 text-2xl"></RiSaveFill>
+                <RiSaveFill className="text-white text-opacity-80 text-2xl cursor-pointer"></RiSaveFill>
               }
             >
               <label
@@ -73,14 +73,14 @@ export const AddButton = ({
             </DropdownItem>
             <DropdownItem
               icon={
-                <RiGlobalFill className="text-white text-opacity-80 text-2xl"></RiGlobalFill>
+                <RiGlobalFill className="text-white text-opacity-80 text-2xl cursor-pointer"></RiGlobalFill>
               }
             >
               <label
                 onClick={() => {
                   setOpen(true);
                 }}
-                className="text-white text-opacity-80"
+                className="text-white text-opacity-80 cursor-pointer"
               >
                 Search by title
               </label>

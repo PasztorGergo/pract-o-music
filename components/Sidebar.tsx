@@ -13,8 +13,8 @@ export const Sidebar = () => {
   const { setOpen } = useModal()!;
 
   return (
-    <aside className="flex h-[calc(100vh-4rem)] z-10 w-full flex-col justify-start gap-8 xl:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
-      <div className="flex items-center justify-between relative ">
+    <aside className="flex h-[calc(100vh-4rem)] z-30 w-full flex-col justify-start gap-8 xl:w-1/3 bg-white bg-opacity-[0.18] border border-white border-opacity-[0.19] backdrop-blur rounded-lg p-4">
+      <div className="flex items-center justify-between relative">
         <h2 className="font-bold text-base uppercase grow-[0.7]">playlist</h2>
         <div
           className={`grid w-[26.67px] cursor-pointer aspect-square rounded-full place-items-center ${
